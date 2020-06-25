@@ -33,7 +33,7 @@ const newBlog = async (blogData = {}) => {
   const createTime = Date.now()
 
   const sql = `
-    insert into blogs (title,subContent,content,createtime,author)values ('${title}','${subContent}','${content}','${createTime}','${author}');
+    insert into blogs (title,subContent,content,createtime,author)values ('${title}','${subContent}','${content}',${createTime},'${author}');
   `
   const installData = await exec(sql)
   return {

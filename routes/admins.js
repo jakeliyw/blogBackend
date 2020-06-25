@@ -6,7 +6,7 @@ router.prefix('/api')
 
 router.get('/admins', async (ctx, next) => {
   let listData = await getAdmins()
-    if (ctx.session.realname !== 'admin') {
+    if (ctx.session.realname == null) {
       ctx.body = new ErrorModel('抱歉未登陆')
       return
     }
