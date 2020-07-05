@@ -1,5 +1,5 @@
 const router = require('koa-router')()
-const {decryption} = require('../utils/cyrp')
+const { decryption } = require('../utils/cyrp') //显示数据不是乱码
 const {
   getList,
   getListLen,
@@ -16,6 +16,7 @@ router.prefix('/api/blog')
 
 router.get('/list', async function (ctx, next) {
   let author = ctx.query.author || ''
+  const tags = ctx.query.tags || ''
   const keyword = ctx.query.keyword || ''
 
   const { start = 0, end = 0 } = ctx.query
@@ -27,7 +28,7 @@ router.get('/list', async function (ctx, next) {
     }
     author = ctx.session.username
   }
-  const listData = await getList(author, keyword, { start, end })
+  const listData = await getList(author, tags, keyword, { start, end })
   const listLen = await getListLen()
   ctx.body = new SuccessModel({ listData, listLen })
 })

@@ -9,9 +9,12 @@ const session = require('koa-generic-session')
 const redisStore = require('koa-redis')
 const timeline = require('./routes/timeline')
 const users = require('./routes/users')
-const menus = require('./routes/menus')
 const blog = require('./routes/blog')
-const admins = require('./routes/admins')
+const tag = require('./routes/tag')
+const routermenu = require('./routes/routermenu')
+const routeradmin = require('./routes/routeradmin')
+const routertimeline = require('./routes/routertimeline')
+const routertag = require('./routes/routertag')
 
 const { REDIS_CONF } = require('./conf/db')
 
@@ -56,8 +59,11 @@ app.use(session({
 app.use(timeline.routes(), timeline.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
 app.use(blog.routes(), blog.allowedMethods())
-app.use(menus.routes(), menus.allowedMethods())
-app.use(admins.routes(), admins.allowedMethods())
+app.use(tag.routes(), tag.allowedMethods())
+app.use(routermenu.routes(), routermenu.allowedMethods())
+app.use(routeradmin.routes(), routeradmin.allowedMethods())
+app.use(routertimeline.routes(), routertimeline.allowedMethods())
+app.use(routertag.routes(), routertag.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

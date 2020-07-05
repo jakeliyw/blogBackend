@@ -1,10 +1,10 @@
 const { exec } = require('../db/mysql')
 
-const getMenu = () => {
-  let sql = `select * from menu`
+const getTag = () => {
+  let sql = `select * from routertag`
   return exec(sql)
 }
 
 module.exports = {
-  getMenu
+  getTag
 }

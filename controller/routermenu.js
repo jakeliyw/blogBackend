@@ -1,10 +1,10 @@
 const { exec } = require('../db/mysql')
 
-const getAdmins = () => {
-  let sql = `select * from admins`
+const getMenu = () => {
+  let sql = `select * from routermenu`
   return exec(sql)
 }
 
 module.exports = {
-  getAdmins
+  getMenu
 }

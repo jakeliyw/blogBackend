@@ -1,11 +1,14 @@
 const xss = require('xss')
-const {encryption} =require('../utils/cyrp')
+const { encryption } = require('../utils/cyrp')
 const { exec } = require('../db/mysql')
 
-const getList = async (author, keyword, { start, end }) => {
+const getList = async (author, tags, keyword, { start, end }) => {
   let sql = `select * from blogs where 1=1 `
   if (author) {
     sql += `and author='${author}' `
+  }
+  if (tags) {
+    sql += `and tags='${tags}' `
   }
   if (keyword) {
     sql += `and title like '%${keyword}%' `
@@ -19,8 +22,10 @@ const getListLen = async () => {
 }
 
 const getDetail = async (id) => {
-  const sql = `select * from blogs where id='${id}'`
+  const sql = `select * from blogs where id='${id}';`
+  const sql1 = `update blogs set toalnum=toalnum+1 where id='${id}';`
   const rows = await exec(sql)
+  await exec(sql1)
   return rows[0]
 }
 
@@ -30,10 +35,11 @@ const newBlog = async (blogData = {}) => {
   const subContent = xss(blogData.subContent)
   const content = encryption(blogData.content)
   const author = blogData.author
+  const tags = blogData.tags
   const createTime = Date.now()
 
   const sql = `
-    insert into blogs (title,subContent,content,createtime,author)values ('${title}','${subContent}','${content}',${createTime},'${author}');
+    insert into blogs (title,subContent,content,createtime,author,tags)values ('${title}','${subContent}','${content}',${createTime},'${author}','${tags}');
   `
   const installData = await exec(sql)
   return {
