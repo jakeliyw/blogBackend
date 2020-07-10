@@ -14,14 +14,14 @@ router.prefix('/api/blog')
 
 router.get('/tagList', async (ctx, next) => {
   const keyword = ctx.query.keyword || ''
-  const { start = 0, end = 0 } = ctx.query
+  const { start = 0 } = ctx.query
   if (ctx.query.isadmin) {
     if (ctx.session.username == null) {
       ctx.body = new ErrorModel('未登陆')
       return
     }
   }
-  const listData = await getList(keyword, { start, end })
+  const listData = await getList(keyword, { start })
   const listLen = await getListLen()
   ctx.body = new SuccessModel({ listData, listLen })
 })

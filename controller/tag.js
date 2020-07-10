@@ -8,7 +8,7 @@ const getList = async ( keyword, { start, end }) => {
   }
   sql += `order by createtime desc `
   if (start) {
-    sql += `limit ${start}, ${end};`
+    sql += `limit ${start}, 5;`
   }
   return await exec(sql)
 }

@@ -2,7 +2,7 @@ const xss = require('xss')
 const { encryption } = require('../utils/cyrp')
 const { exec } = require('../db/mysql')
 
-const getList = async (author, tags, keyword, { start, end }) => {
+const getList = async (author, tags, keyword, { start }) => {
   let sql = `select * from blogs where 1=1 `
   if (author) {
     sql += `and author='${author}' `
@@ -13,11 +13,17 @@ const getList = async (author, tags, keyword, { start, end }) => {
   if (keyword) {
     sql += `and title like '%${keyword}%' `
   }
-  sql += `order by createtime desc limit ${start}, ${end};`
+  sql += `order by createtime desc `
+  if (start) {
+    sql += `limit ${start}, 5 ;`
+  }
   return await exec(sql)
 }
 //计算数据的总长度
-const getListLen = async () => {
+const getListLen = async (tags) => {
+  if (tags) {
+    return (await exec(`SELECT COUNT(*) as count FROM myblog.blogs where  tags='${tags}';`))[0]['count']
+  }
   return (await exec('SELECT COUNT(*) as count FROM myblog.blogs;'))[0]['count']
 }
 

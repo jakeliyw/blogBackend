@@ -19,7 +19,7 @@ router.get('/list', async function (ctx, next) {
   const tags = ctx.query.tags || ''
   const keyword = ctx.query.keyword || ''
 
-  const { start = 0, end = 0 } = ctx.query
+  const { start = 0 } = ctx.query
 
   if (ctx.query.isadmin) {
     if (ctx.session.username == null) {
@@ -28,8 +28,8 @@ router.get('/list', async function (ctx, next) {
     }
     author = ctx.session.username
   }
-  const listData = await getList(author, tags, keyword, { start, end })
-  const listLen = await getListLen()
+  const listData = await getList(author, tags, keyword, { start })
+  const listLen = await getListLen(tags)
   ctx.body = new SuccessModel({ listData, listLen })
 })
 
