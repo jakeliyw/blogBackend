@@ -20,15 +20,15 @@ if (env === 'dev') {
 
 if (env === 'production') {
   MYSQL_CONF = {
-    host: 'localhost',
+    host: 'db',
     user: 'root',
-    password: '12345678',
+    password: 'root',
     port: '3306',
-    database: 'myblog',
+    database: 'main',
   }
   REDIS_CONF = {
     port: '6379',
-    host: '127.0.0.1',
+    host: 'cache',
   }
 }
 module.exports = {

@@ -25,4 +25,3 @@ module.exports = {
   exec,
   escape:mysql.escape
 }
- 
