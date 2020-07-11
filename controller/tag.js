@@ -14,7 +14,7 @@ const getList = async ( keyword, { start, end }) => {
 }
 //计算数据的总长度
 const getListLen = async () => {
-  return (await exec('SELECT COUNT(*) as count FROM myblog.tag;'))[0]['count']
+  return (await exec('SELECT COUNT(*) as count FROM tag;'))[0]['count']
 }
 
 // 获取数据详情
