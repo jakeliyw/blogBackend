@@ -10,7 +10,7 @@ if (env === 'dev') {
     user: 'root',
     password: '12345678',
     port: '3306',
-    database: 'myblog',
+    database: 'main',
   }
   REDIS_CONF = {
     port: '6379',
