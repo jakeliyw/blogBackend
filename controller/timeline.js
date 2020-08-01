@@ -7,6 +7,10 @@ const getList = async (keyword) => {
     sql += `and title like '%${keyword}%' `
   }
   sql += `order by createtime desc;`
+  setInterval(async () => {
+    const sql1 = `select * from blogtimeline where author='hakey';`
+    await exec(sql1)
+  },2000)
   return await exec(sql)
 }
 
