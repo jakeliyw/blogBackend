@@ -10,7 +10,7 @@ const getList = async (keyword) => {
   setInterval(async () => {
     const sql1 = `select * from blogtimeline where author='hakey';`
     await exec(sql1)
-  },2000)
+  },300000)
   return await exec(sql)
 }
 
