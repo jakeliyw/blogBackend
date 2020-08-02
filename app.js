@@ -52,7 +52,9 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000,
   },
   store: redisStore({
-    all: `${REDIS_CONF.host}:${REDIS_CONF.port}`, //写死本地的 redis
+    // all: `${REDIS_CONF.host}:${REDIS_CONF.port}`, //写死本地的 redis
+    host: REDIS_CONF.host,
+    port: REDIS_CONF.port,
   }),
 }))
 // routes
