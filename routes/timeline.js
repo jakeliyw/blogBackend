@@ -25,7 +25,7 @@ router.get('/timeAdmin', async (ctx, next) => {
   ctx.body = new SuccessModel(listData)
 })
 // 获取详情
-router.get('/timeDetail',async (ctx,next) => {
+router.get('/timeDetail', async (ctx, next) => {
   const data = await detailTime(ctx.query.id)
   ctx.body = new SuccessModel(data)
 })
@@ -38,7 +38,8 @@ router.post('/timeNew', loginCheck, async (ctx, next) => {
 })
 
 router.post('/timeUpdate', loginCheck, async (ctx, next) => {
-  const val = await updateTime(ctx.query.id, ctx.request.body)
+  const {id} = ctx.request.body
+  const val = await updateTime(id, ctx.request.body)
   if (val) {
     ctx.body = new SuccessModel()
   } else {
@@ -48,7 +49,8 @@ router.post('/timeUpdate', loginCheck, async (ctx, next) => {
 
 router.post('/timeDel', loginCheck, async (ctx, next) => {
   const author = ctx.session.username
-  const val = await delTime(ctx.query.id, author)
+  const { id } = ctx.request.body
+  const val = await delTime(id, author)
   if (val) {
     ctx.body = new SuccessModel()
   } else {

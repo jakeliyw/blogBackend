@@ -39,7 +39,8 @@ router.post('/tagNew', loginCheck, async (ctx, next) => {
 })
 
 router.post('/tagUpdate', loginCheck, async (ctx, next) => {
-  const val = await updateTag(ctx.query.id, ctx.request.body)
+  const { id } = ctx.request.body
+  const val = await updateTag(id, ctx.request.body)
   if (val) {
     ctx.body = new SuccessModel()
   } else {
@@ -49,7 +50,8 @@ router.post('/tagUpdate', loginCheck, async (ctx, next) => {
 
 router.post('/tagDel', loginCheck, async (ctx, next) => {
   const author = ctx.session.username
-  const val = await delTag(ctx.query.id, author)
+  const { id } = ctx.request.body
+  const val = await delTag(id, author)
   if (val) {
     ctx.body = new SuccessModel()
   } else {
