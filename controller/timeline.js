@@ -26,7 +26,7 @@ const newTime = async (timeData = {}) => {
   const createtime = Date.now()
   const author = timeData.author
   const sql = `
-  insert into blogtimeline (title,content,createtime)values ('${title}','${content}','${createtime}','${author}');
+  insert into blogtimeline (title,content,createtime,author)values ('${title}','${content}','${createtime}','${author}');
   `
   const installData = await exec(sql)
   return {
