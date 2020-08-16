@@ -22,9 +22,9 @@ const getList = async (author, tags, keyword, { start }) => {
 //计算数据的总长度
 const getListLen = async (tags) => {
   if (tags) {
-    return (await exec(`SELECT COUNT(*) as count FROM blogs where  tags='${tags}';`))[0]['count']
+    return (await exec(`SELECT COUNT(*) as count FROM myblog.blogs where  tags='${tags}';`))[0]['count']
   }
-  return (await exec('SELECT COUNT(*) as count FROM blogs;'))[0]['count']
+  return (await exec('SELECT COUNT(*) as count FROM myblog.blogs;'))[0]['count']
 }
 
 const getDetail = async (id) => {
@@ -56,8 +56,9 @@ const newBlog = async (blogData = {}) => {
 const updateBlog = async (id, blogData = {}) => {
   const title = xss(blogData.title)
   const content = encryption(blogData.content)
+  const tags = blogData.tags
   const sql = `
-    update blogs set title='${title}', content='${content}' where id=${id}
+    update blogs set title='${title}', content='${content}',tags='${tags}' where id=${id}
   `
   const updateData = await exec(sql)
   if (updateData.affectedRows > 0) {
